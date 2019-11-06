@@ -1,3 +1,4 @@
+package morpion.gradle;
 import java.util.Scanner;
 
 public class Morpion {
