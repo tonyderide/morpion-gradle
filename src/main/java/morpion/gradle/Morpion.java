@@ -15,7 +15,7 @@ public class Morpion {
     /**
      * affiche la grille
      */
-    public void afficherGrille() {
+    public void afficherGrille() { 
         for (int j = 0; j < this.grille.length; ++j) {
             for (int i = 0; i < this.grille[0].length; ++i) {
                 System.out.print(this.grille[j][i]);
