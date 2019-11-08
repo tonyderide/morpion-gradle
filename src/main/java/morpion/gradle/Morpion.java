@@ -28,7 +28,7 @@ public class Morpion {
      * 
      */
     public void selectionCase() {
-        while (true) {
+        while (true) { // TODO pas beau un while(true) avec un break!
             System.out.print("joueur " + joueurCourant + " selectionner une case de 1 a 9: ");
             this.caseDeGrille = sc.nextLine();
             // test si c'est un chiffre compris entre 1 et 9 et que ce n'est pas un String
@@ -79,11 +79,14 @@ public class Morpion {
                     return true;
                     
                 }
+                // TODO pas besoin de répéter ce test 9 fois
                 if (this.grille[0][0] == joueurCourant && this.grille[1][1] == joueurCourant
                         && this.grille[2][2] == joueurCourant) {
                     // verification diagonal
                     return true;
                 }
+                
+                // TODO ce test n'est pas consistent avec le précédent ( = s'il fait la même chose, il devrait être pareil)
                 if (this.grille[i][2] == joueurCourant && this.grille[i + 1][j + 1] == joueurCourant
                         && this.grille[2][j] == joueurCourant) {
                     // verification diagonal
@@ -107,13 +110,15 @@ public class Morpion {
                 System.out.println("tour du joueur " + joueur1);
             }
         }else{ 
-            afficherGrille();
+            afficherGrille(); // TODO est-ce bien la méthode changerJoueur qui doit afficher la grille?
             return;}    
     }
 
     public static void main(String[] args) {
         //deroulement du jeu
         Morpion game = new Morpion();
+        
+        // TODO boucle principale du jeu à placer dans une méthode (par exemple : lancerJeu())
         while (game.verifierGagnant()==false) {
             game.afficherGrille();
             game.selectionCase();
