@@ -111,7 +111,7 @@ public class Morpion {
             }
         }else{ 
             afficherGrille(); // TODO est-ce bien la méthode changerJoueur qui doit afficher la grille?
-            return;}    
+            return;}     
     }
 
     public static void main(String[] args) {
