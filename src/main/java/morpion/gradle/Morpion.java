@@ -108,8 +108,7 @@ public class Morpion {
             }
         }else{ 
             afficherGrille();
-            return;}
-        
+            return;}    
     }
 
     public static void main(String[] args) {
