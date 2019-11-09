@@ -2,13 +2,15 @@ package morpion.gradle;
 import java.util.Scanner;
 
 public class Morpion {
-    //parametre
+    //Parameter
     private char[][] grille = new char[][] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
     private String caseDeGrille = "-1";
     private Scanner sc = new Scanner(System.in);
     private char joueur1 = 'O';
     private char joueur2 = 'X';
     private char joueurCourant = joueur1;
+    static Morpion game = new Morpion();
+    private int nbDeTour=0;
 
     //method
 
@@ -60,7 +62,7 @@ public class Morpion {
 
     }
     /**
-     * verifie si il y a un gagnant et retourne un booleen
+     * Verifier si il y a un gagnant et retourne un boolean
      * @return true si il y a un gagnant
      */
     public boolean verifierGagnant() {
@@ -89,7 +91,7 @@ public class Morpion {
                 // TODO ce test n'est pas consistent avec le précédent ( = s'il fait la même chose, il devrait être pareil)
                 if (this.grille[i][2] == joueurCourant && this.grille[i + 1][j + 1] == joueurCourant
                         && this.grille[2][j] == joueurCourant) {
-                    // verification diagonal
+                    // verification de l'autre diagonal
                     return true;
                 }
             }
@@ -113,20 +115,30 @@ public class Morpion {
             afficherGrille(); // TODO est-ce bien la méthode changerJoueur qui doit afficher la grille?
             return;}     
     }
+    public void lancerJeu(){
+    	while (this.verifierGagnant()==false || this.egaliter()==true) {
+    		this.afficherGrille();//Déroulement du jeu
+    		this.egaliter();
+    		this.selectionCase();
+    		this.placerJeton();
+    		this.verifierGagnant();
+    		this.changerJoueur();
+    	}
+    	System.out.println("le joueur " + game.joueurCourant + " est le gagnant");
+    	System.out.println("fin du programme!!");
+    	
+    }
+    public boolean egaliter() {
+    	this.nbDeTour++;
+        if (nbDeTour==9) {
+			System.out.println("egalité");
+			return true;
+		} return false;
+    }
 
     public static void main(String[] args) {
-        //deroulement du jeu
-        Morpion game = new Morpion();
+    	game.lancerJeu();
         
-        // TODO boucle principale du jeu à placer dans une méthode (par exemple : lancerJeu())
-        while (game.verifierGagnant()==false) {
-            game.afficherGrille();
-            game.selectionCase();
-            game.placerJeton();
-            game.verifierGagnant();
-            game.changerJoueur();
-        }
-        System.out.println("le joueur " + game.joueurCourant + " est le gagnant");
-        System.out.println("fin du programme!!");
+        
     }
 }
