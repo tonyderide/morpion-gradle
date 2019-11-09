@@ -30,21 +30,22 @@ public class Morpion {
      * 
      */
     public void selectionCase() {
-        while (true) { // TODO pas beau un while(true) avec un break!
+    	int caseDeGrilleNum = -1;
+        do { // TODO pas beau un while(true) avec un break! fait
             System.out.print("joueur " + joueurCourant + " selectionner une case de 1 a 9: ");
             this.caseDeGrille = sc.nextLine();
             // test si c'est un chiffre compris entre 1 et 9 et que ce n'est pas un String
             try {
-                int caseDeGrilleNum = (Integer.parseInt(caseDeGrille) - 1); // transformation case de la grille en numerique
+                caseDeGrilleNum = (Integer.parseInt(caseDeGrille) - 1); // transformation case de la grille en numerique
                 if (caseDeGrilleNum >= 0 && caseDeGrilleNum <= 8 
                 && grille[caseDeGrilleNum / 3][caseDeGrilleNum % 3]!= joueur1//test pour savoir si case deja occupé
                 && grille[caseDeGrilleNum / 3][caseDeGrilleNum % 3]!= joueur2) {
-                    break;
+                
                 }
             } catch (Exception e) {
                 System.out.println("on a dit un chiffre entre 1 et 9!!");
             }
-        }
+        } while (caseDeGrilleNum < 0);
     }
     /**
      * place le jeton dans la grille
@@ -67,6 +68,12 @@ public class Morpion {
      */
     public boolean verifierGagnant() {
         
+    	// TODO pas besoin de répéter ce test 9 fois fais
+    	if (this.grille[0][0] == joueurCourant && this.grille[1][1] == joueurCourant
+    			&& this.grille[2][2] == joueurCourant) {
+    		// verification diagonal
+    		return true;
+    	}
         for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 2; i++) {
                 if (this.grille[0][j] == joueurCourant && this.grille[1][j] == joueurCourant
@@ -81,20 +88,14 @@ public class Morpion {
                     return true;
                     
                 }
-                // TODO pas besoin de répéter ce test 9 fois
-                if (this.grille[0][0] == joueurCourant && this.grille[1][1] == joueurCourant
-                        && this.grille[2][2] == joueurCourant) {
-                    // verification diagonal
-                    return true;
-                }
-                
-                // TODO ce test n'est pas consistent avec le précédent ( = s'il fait la même chose, il devrait être pareil)
+                // TODO ce test n'est pas consistent avec le précédent ( = s'il fait la même chose, il devrait être pareil) fait
                 if (this.grille[i][2] == joueurCourant && this.grille[i + 1][j + 1] == joueurCourant
                         && this.grille[2][j] == joueurCourant) {
                     // verification de l'autre diagonal
                     return true;
                 }
             }
+            
         }
         return false;
     }
@@ -118,10 +119,10 @@ public class Morpion {
     public void lancerJeu(){
     	while (this.verifierGagnant()==false || this.egaliter()==true) {
     		this.afficherGrille();//Déroulement du jeu
-    		this.egaliter();
     		this.selectionCase();
     		this.placerJeton();
     		this.verifierGagnant();
+    		this.egaliter();
     		this.changerJoueur();
     	}
     	System.out.println("le joueur " + game.joueurCourant + " est le gagnant");
